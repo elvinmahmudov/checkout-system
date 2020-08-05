@@ -1,10 +1,15 @@
 package main.java.com.elvinmahmudov.promotionalrules;
 
-import main.java.com.elvinmahmudov.model.Item;
+import java.util.function.Function;
 
-import java.math.BigDecimal;
-import java.util.List;
+public abstract class PromotionalRule {
+    protected Function<Integer[], Boolean> condition;
 
-public interface PromotionalRule {
-    BigDecimal getPromotion(List<Item> items, BigDecimal lastTotalPrice);
+    public Function<Integer[], Boolean> getCondition() {
+        return condition;
+    }
+
+    public void setCondition(Function<Integer[], Boolean> condition) {
+        this.condition = condition;
+    }
 }
