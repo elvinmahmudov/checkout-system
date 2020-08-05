@@ -2,7 +2,6 @@ package main.java.com.elvinmahmudov.service;
 
 import main.java.com.elvinmahmudov.model.Item;
 import main.java.com.elvinmahmudov.promotionalrules.PromotionalRule;
-import main.java.com.elvinmahmudov.service.Checkout;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -11,8 +10,8 @@ import java.util.List;
 
 public class CheckoutImpl implements Checkout {
 
-    List<PromotionalRule> promotionalRules;
-    List<Item> items;
+    private final List<PromotionalRule> promotionalRules;
+    private final List<Item> items;
 
     public CheckoutImpl(PromotionalRule... promotionalRules) {
         this.promotionalRules = Arrays.asList(promotionalRules);
@@ -26,10 +25,6 @@ public class CheckoutImpl implements Checkout {
 
     @Override
     public BigDecimal total() {
-        var lastTotalPrice = BigDecimal.ZERO;
-        for (PromotionalRule rule : promotionalRules) {
-            lastTotalPrice = rule.getPromotion(items, lastTotalPrice);
-        }
-        return lastTotalPrice;
+        return new PromotionComputer(promotionalRules).getTotal(items);
     }
 }

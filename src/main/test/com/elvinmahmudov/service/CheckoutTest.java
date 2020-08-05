@@ -1,17 +1,20 @@
 package main.test.com.elvinmahmudov.service;
 
-import main.java.com.elvinmahmudov.service.CheckoutImpl;
-import main.java.com.elvinmahmudov.promotionalrules.DiscountPromotionalRule;
 import main.java.com.elvinmahmudov.model.Item;
-import main.java.com.elvinmahmudov.promotionalrules.TravelCardHolderPromotionalRule;
+import main.java.com.elvinmahmudov.promotionalrules.PriceChangePromotionalRule;
+import main.java.com.elvinmahmudov.promotionalrules.PromotionalRule;
+import main.java.com.elvinmahmudov.promotionalrules.TotalChangePromotionalRule;
+import main.java.com.elvinmahmudov.service.CheckoutImpl;
 
 import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 public class CheckoutTest {
 
     private static Map<String, Item> testBasketMap = new HashMap<>();
+    private static PromotionalRule[] rules;
 
     private static void createTestBasket() {
         testBasketMap.put("001", new Item("001", "Travel Card Holder", new BigDecimal("9.25")));
@@ -21,14 +24,26 @@ public class CheckoutTest {
 
     public static void main(String[] args) {
         createTestBasket();
+        createPromotionalRules();
 
         testDiscountPromotionalRule();
         testTravelCardHolderPromotionalRule();
         testTravelCardHolderAndDiscountPromotionalRules();
     }
 
+    private static void createPromotionalRules() {
+        var priceChangePromotionalRule = new PriceChangePromotionalRule(Set.of("001"),
+                (params) -> params[0] >= 2, new BigDecimal("8.5"));
+        var totalChangePromotionalRule = new TotalChangePromotionalRule(params -> params[1] >= 60, total -> total.multiply(new BigDecimal("0.9")));
+
+        rules = new PromotionalRule[]{
+                priceChangePromotionalRule,
+                totalChangePromotionalRule
+        };
+    }
+
     private static void testDiscountPromotionalRule() {
-        var co = new CheckoutImpl(new TravelCardHolderPromotionalRule(), new DiscountPromotionalRule());
+        var co = new CheckoutImpl(rules);
 
         co.scan(testBasketMap.get("001"));
         co.scan(testBasketMap.get("002"));
@@ -38,7 +53,7 @@ public class CheckoutTest {
     }
 
     private static void testTravelCardHolderPromotionalRule() {
-        var co = new CheckoutImpl(new TravelCardHolderPromotionalRule(), new DiscountPromotionalRule());
+        var co = new CheckoutImpl(rules);
 
         co.scan(testBasketMap.get("001"));
         co.scan(testBasketMap.get("003"));
@@ -48,14 +63,14 @@ public class CheckoutTest {
     }
 
     private static void testTravelCardHolderAndDiscountPromotionalRules() {
-        var co = new CheckoutImpl(new TravelCardHolderPromotionalRule(), new DiscountPromotionalRule());
+        var co = new CheckoutImpl(rules);
 
         co.scan(testBasketMap.get("001"));
         co.scan(testBasketMap.get("002"));
         co.scan(testBasketMap.get("001"));
         co.scan(testBasketMap.get("003"));
 
-        assertTrue(new BigDecimal("73.755"), co.total());
+        assertTrue(new BigDecimal("73.76"), co.total());
     }
 
     private static void assertTrue(BigDecimal expectedValue, BigDecimal actualValue) {
