@@ -10,6 +10,8 @@ public class Item {
 
     private BigDecimal price;
 
+    private Boolean isPromoted = false;
+
     public Item(String productCode, String name, BigDecimal price) {
         this.productCode = productCode;
         this.name = name;
@@ -40,6 +42,14 @@ public class Item {
         this.price = price;
     }
 
+    public Boolean getIsPromoted() {
+        return isPromoted;
+    }
+
+    public void setIsPromoted(Boolean isPromoted) {
+        this.isPromoted = isPromoted;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -47,11 +57,12 @@ public class Item {
         Item item = (Item) o;
         return Objects.equals(productCode, item.productCode) &&
                 Objects.equals(name, item.name) &&
-                Objects.equals(price, item.price);
+                Objects.equals(price, item.price) &&
+                Objects.equals(isPromoted, item.isPromoted);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(productCode, name, price);
+        return Objects.hash(productCode, name, price, isPromoted);
     }
 }
