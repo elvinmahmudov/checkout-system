@@ -1,4 +1,4 @@
-package main.java.com.elvinmahmudov.model;
+package com.elvinmahmudov.model;
 
 import java.math.BigDecimal;
 import java.util.Objects;

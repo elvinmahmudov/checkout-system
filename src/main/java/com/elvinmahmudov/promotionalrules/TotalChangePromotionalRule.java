@@ -1,4 +1,4 @@
-package main.java.com.elvinmahmudov.promotionalrules;
+package com.elvinmahmudov.promotionalrules;
 
 import java.math.BigDecimal;
 import java.util.function.Function;

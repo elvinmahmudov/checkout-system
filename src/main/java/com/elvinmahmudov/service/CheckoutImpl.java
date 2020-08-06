@@ -1,7 +1,7 @@
-package main.java.com.elvinmahmudov.service;
+package com.elvinmahmudov.service;
 
-import main.java.com.elvinmahmudov.model.Item;
-import main.java.com.elvinmahmudov.promotionalrules.PromotionalRule;
+import com.elvinmahmudov.model.Item;
+import com.elvinmahmudov.promotionalrules.PromotionalRule;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;

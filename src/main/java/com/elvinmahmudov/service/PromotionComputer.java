@@ -1,9 +1,9 @@
-package main.java.com.elvinmahmudov.service;
+package com.elvinmahmudov.service;
 
-import main.java.com.elvinmahmudov.model.Item;
-import main.java.com.elvinmahmudov.promotionalrules.PriceChangePromotionalRule;
-import main.java.com.elvinmahmudov.promotionalrules.PromotionalRule;
-import main.java.com.elvinmahmudov.promotionalrules.TotalChangePromotionalRule;
+import com.elvinmahmudov.model.Item;
+import com.elvinmahmudov.promotionalrules.PriceChangePromotionalRule;
+import com.elvinmahmudov.promotionalrules.PromotionalRule;
+import com.elvinmahmudov.promotionalrules.TotalChangePromotionalRule;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;

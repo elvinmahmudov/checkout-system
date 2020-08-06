@@ -1,6 +1,6 @@
-package main.java.com.elvinmahmudov.service;
+package com.elvinmahmudov.service;
 
-import main.java.com.elvinmahmudov.model.Item;
+import com.elvinmahmudov.model.Item;
 
 import java.math.BigDecimal;
 

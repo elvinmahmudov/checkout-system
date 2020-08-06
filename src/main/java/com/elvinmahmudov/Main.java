@@ -1,9 +1,9 @@
-package main.java.com.elvinmahmudov;
+package com.elvinmahmudov;
 
-import main.java.com.elvinmahmudov.model.Item;
-import main.java.com.elvinmahmudov.promotionalrules.PriceChangePromotionalRule;
-import main.java.com.elvinmahmudov.promotionalrules.TotalChangePromotionalRule;
-import main.java.com.elvinmahmudov.service.CheckoutImpl;
+import com.elvinmahmudov.model.Item;
+import com.elvinmahmudov.promotionalrules.PriceChangePromotionalRule;
+import com.elvinmahmudov.promotionalrules.TotalChangePromotionalRule;
+import com.elvinmahmudov.service.CheckoutImpl;
 
 import java.math.BigDecimal;
 import java.util.Set;
