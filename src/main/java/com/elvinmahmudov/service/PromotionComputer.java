@@ -36,15 +36,19 @@ public class PromotionComputer {
     }
 
     private BigDecimal applyTotalChangeRules(List<Item> checkedItems) {
-        var total = checkedItems.stream().map(Item::getPrice).reduce(BigDecimal.ZERO, BigDecimal::add);
+        var total = getTotalPrice(checkedItems);
 
         for (TotalChangePromotionalRule rule : onTotalRules) {
-            if (rule.getCondition().apply(new Integer[]{checkedItems.size(), total.intValue()})) {
+            if (rule.getCondition().apply(checkedItems.size(), total)) {
                 total = rule.getTotalChange().apply(total);
             }
         }
 
         return total.setScale(2, RoundingMode.HALF_EVEN);
+    }
+
+    private BigDecimal getTotalPrice(List<Item> checkedItems) {
+        return checkedItems.stream().map(Item::getPrice).reduce(BigDecimal.ZERO, BigDecimal::add);
     }
 
 
@@ -55,7 +59,7 @@ public class PromotionComputer {
                     .filter(item -> rule.getSelectedItems().contains(item.getProductCode()))
                     .collect(Collectors.toList());
 
-            if (rule.getCondition().apply(new Integer[]{itemsToPromote.size()})) {
+            if (rule.getCondition().apply(itemsToPromote.size(), getTotalPrice(checkedItems))) {
                 itemsToPromote.forEach(item -> {
                     item.setPrice(rule.getNewPrice());
                     item.setIsPromoted(true);

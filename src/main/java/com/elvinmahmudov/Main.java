@@ -16,8 +16,8 @@ public class Main {
         var tshirt = new Item("003", "Kids T-shirt", new BigDecimal("19.95"));
 
         var priceChangePromotionalRule = new PriceChangePromotionalRule(Set.of("001"),
-                (params) -> params[0] >= 2, new BigDecimal("3"));
-        var totalChangePromotionalRule = new TotalChangePromotionalRule(params -> params[1] >= 60, total -> total.multiply(new BigDecimal("0.9")));
+                (itemsCount, totalPrice) -> itemsCount >= 2, new BigDecimal("3"));
+        var totalChangePromotionalRule = new TotalChangePromotionalRule((itemsCount, totalPrice) -> totalPrice.compareTo(new BigDecimal("60")) >= 0, total -> total.multiply(new BigDecimal("0.9")));
 
         var co = new CheckoutImpl(totalChangePromotionalRule, priceChangePromotionalRule);
 

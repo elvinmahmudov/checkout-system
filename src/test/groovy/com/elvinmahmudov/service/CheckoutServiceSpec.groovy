@@ -18,8 +18,8 @@ class CheckoutServiceSpec extends Specification {
 
     def createPromotionalRules() {
         priceChangeRule = new PriceChangePromotionalRule(Set.of("001"),
-                (params) -> params[0] >= 2, new BigDecimal("8.5"))
-        totalChangeRule = new TotalChangePromotionalRule((params) -> params[1] >= 60, (total) -> total.multiply(new BigDecimal("0.9")))
+                (itemsCount, totalPrice) -> itemsCount >= 2, new BigDecimal("8.5"))
+        totalChangeRule = new TotalChangePromotionalRule((itemsCount, totalPrice) -> totalPrice >= new BigDecimal("60"), (total) -> total.multiply(new BigDecimal("0.9")))
     }
 
     def setup() {
